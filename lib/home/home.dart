@@ -1,3 +1,4 @@
+import 'package:crudapp/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:crudapp/login/login.dart';
 import 'package:crudapp/topics/topics.dart';
@@ -9,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<AuthState>(
-      stream: Supabase.instance.client.auth.onAuthStateChange,
+      stream: AuthService().userStream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text('Loading');
