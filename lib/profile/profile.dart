@@ -10,13 +10,17 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Profile'),
       ),
-      body: ElevatedButton(
-          child: Text('signout'),
-          onPressed: () async {
-            await AuthService().signOut();
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil('/', (route) => false);
-          }),
+      body: Column(
+        children: [
+          ElevatedButton(
+              child: Text('signout'),
+              onPressed: () async {
+                await AuthService().signOut();
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/', (route) => false);
+              }),
+        ],
+      ),
     );
   }
 }
