@@ -9,6 +9,7 @@ class SupabaseService {
   /// Reads all documents from the topics table
   Future<List<Topic>> getTopics() async {
     final response = await _client.from('topics').select();
+    print(response);
     return response.map((data) => Topic.fromJson(data)).toList();
   }
 
