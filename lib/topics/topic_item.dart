@@ -13,7 +13,11 @@ class TopicItem extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child:InkWell(
           onTap: (){
-
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) => TopicsScreen(topic: topic),
+              ),
+            );
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -46,6 +50,32 @@ class TopicItem extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TopicsScreen extends StatelessWidget {
+  final Topic topic;
+  const TopicsScreen({super.key, required this.topic});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      body: ListView(children: [
+          Hero(
+            tag: topic.img,
+            child: Image.asset('assets/covers/${topic.img}',
+              width: MediaQuery.of(context).size.width),
+          ),
+          Text(
+            topic.title,
+            style: 
+              const TextStyle(height: 2,fontSize: 20, fontWeight: FontWeight.bold,),
+          )
+      ]),
     );
   }
 }
