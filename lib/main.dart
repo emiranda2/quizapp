@@ -1,6 +1,8 @@
 import 'package:crudapp/routes.dart';
+import 'package:crudapp/services/services.dart';
 import 'package:crudapp/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async{
@@ -18,9 +20,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: appRoutes,
-      theme: appTheme,
+    return StreamProvider(
+      create: (_) => SupabaseService().streamReport(),
+      initialData: Report(),
+      child: MaterialApp(
+        routes: appRoutes,
+        theme: appTheme,
+      ),
     );
   }
 }
