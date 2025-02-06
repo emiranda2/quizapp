@@ -35,7 +35,7 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) => Quiz(
       title: json['title'] as String? ?? '',
       video: json['video'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      id: json['id'] as String? ?? '',
+      id: json['quizid'] as String? ?? '',
       topic: json['topic'] as String? ?? '',
       questions: (json['questions'] as List<dynamic>?)
               ?.map((e) => Question.fromJson(e as Map<String, dynamic>))
@@ -44,7 +44,7 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) => Quiz(
     );
 
 Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
-      'id': instance.id,
+      'quizid': instance.id,
       'title': instance.title,
       'description': instance.description,
       'video': instance.video,
@@ -53,7 +53,7 @@ Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
     };
 
 Topic _$TopicFromJson(Map<String, dynamic> json) => Topic(
-      id: json['id'] as String? ?? '',
+      id: json['topicid'] as String? ?? '',
       title: json['title'] as String? ?? '',
       description: json['description'] as String? ?? '',
       img: json['img'] as String? ?? 'default.png',
@@ -64,7 +64,7 @@ Topic _$TopicFromJson(Map<String, dynamic> json) => Topic(
     );
 
 Map<String, dynamic> _$TopicToJson(Topic instance) => <String, dynamic>{
-      'id': instance.id,
+      'topicid': instance.id,
       'title': instance.title,
       'description': instance.description,
       'img': instance.img,

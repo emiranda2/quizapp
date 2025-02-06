@@ -25,9 +25,9 @@ Stream<Report> streamReport() {
     final userId = authState.session?.user.id; // Get user ID from session
     if (userId != null) {
       return _client
-          .from('reports')
-          .stream(primaryKey: ['id'])
-          .eq('user_id', userId)
+          .from('completed_quizzes')
+          .stream(primaryKey: ['userid'])
+          .eq('userid', userId)
           .map((data) => data.isNotEmpty ? Report.fromJson(data.first) : Report());
     } else {
       return Stream.value(Report());
@@ -38,8 +38,8 @@ Stream<Report> streamReport() {
   /// Updates the current user's report document after completing a quiz
   Future<void> updateUserReport(Quiz quiz) async {
     final userId = _client.auth.currentUser?.id;
-    if (userId == null) return;
 
+    if (userId == null) return;
     final data = {
       'user_id': userId, // Ensure user_id is included in the data
       'total': 1, // Supabase does not support FieldValue.increment, so use RPC for increments

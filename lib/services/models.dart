@@ -23,6 +23,7 @@ class Question {
 
 @JsonSerializable()
 class Quiz {
+  @JsonKey(name: 'quizid')
   String id;
   String title;
   String description;
@@ -43,6 +44,7 @@ class Quiz {
 
 @JsonSerializable()
 class Topic {
+  @JsonKey(name: 'topicid')
   late final String id;
   final String title;
   final String description;
