@@ -14,8 +14,7 @@ class SupabaseService {
 
   /// Retrieves a single quiz document
   Future<Quiz> getQuiz(String quizId) async {
-    final response = await _client.from('quizzes').select().eq('id', quizId).single();
-    print(response);
+    final response = await _client.from('quiz_document').select().eq('quizid', quizId).single();
     return Quiz.fromJson(response);
   }
 
@@ -41,13 +40,10 @@ Stream<Report> streamReport() {
 
     if (userId == null) return;
     final data = {
-      'user_id': userId, // Ensure user_id is included in the data
-      'total': 1, // Supabase does not support FieldValue.increment, so use RPC for increments
-      'topics': {
-        quiz.topic: [quiz.id]
-      }
+      'userid': userId, // Ensure user_id is included in the data
+      'quizid': quiz.id
     };
 
-    await _client.from('reports').upsert(data, onConflict: 'user_id');
+    await _client.from('reports').upsert(data);
   }
 }

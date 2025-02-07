@@ -95,9 +95,7 @@ class QuizBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Report report = Provider.of<Report>(context);
-    //print("fuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolice${report.topics}");
     List completed = report.topics[topic.id] ?? [];
-    //print("fuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolicefuckthepolice${quizId}");
     if (completed.contains(quizId)) {
       return const Icon(FontAwesomeIcons.checkDouble, color: Colors.green);
     } else {
