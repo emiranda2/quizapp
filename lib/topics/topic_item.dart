@@ -1,5 +1,6 @@
 import 'package:crudapp/services/models.dart';
 import 'package:crudapp/shared/shared.dart';
+import 'package:crudapp/topics/drawer.dart';
 import 'package:flutter/material.dart';
 
 class TopicItem extends StatelessWidget {
@@ -77,6 +78,7 @@ class TopicsScreen extends StatelessWidget {
             style: 
               const TextStyle(height: 2,fontSize: 20, fontWeight: FontWeight.bold,),
           ),
+          QuizList(topic: topic),
       ]),
     );
   }
