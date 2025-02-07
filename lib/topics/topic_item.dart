@@ -1,4 +1,5 @@
 import 'package:crudapp/services/models.dart';
+import 'package:crudapp/shared/shared.dart';
 import 'package:flutter/material.dart';
 
 class TopicItem extends StatelessWidget {
@@ -46,6 +47,7 @@ class TopicItem extends StatelessWidget {
                   )
                 ),
               ),
+              Flexible(child: TopicProgress(topic: topic)),
             ],
           ),
         ),
@@ -74,7 +76,7 @@ class TopicsScreen extends StatelessWidget {
             topic.title,
             style: 
               const TextStyle(height: 2,fontSize: 20, fontWeight: FontWeight.bold,),
-          )
+          ),
       ]),
     );
   }
