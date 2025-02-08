@@ -18,21 +18,34 @@ class SupabaseService {
     return Quiz.fromJson(response);
   }
 
-/// Listens to current user's report document in Supabase
-Stream<Report> streamReport() {
-  return AuthService().userStream.switchMap((authState) {
-    final userId = authState.session?.user.id; // Get user ID from session
-    if (userId != null) {
-      return _client
-          .from('completed_quizzes')
-          .stream(primaryKey: ['userid'])
-          .eq('userid', userId)
-          .map((data) => data.isNotEmpty ? Report.fromJson(data.first) : Report());
-    } else {
-      return Stream.value(Report());
-    }
-  });
-}
+  /// Listens to current user's report document in Supabase
+  Stream<Report> streamReport() {
+    return AuthService().userStream.switchMap((authState) {
+      final userId = authState.session?.user.id;
+      print('StreamReport - UserID: $userId'); // Debug print
+
+      if (userId != null) {
+        return _client
+            .from('reports')
+            .stream(primaryKey: ['userid'])
+            .eq('userid', userId)
+            .asyncMap((_) async {
+              print('StreamReport - Change detected in reports table'); // Debug print
+              final response = await _client
+                  .from('completed_quizzes')
+                  .select()
+                  .eq('userid', userId);
+              print('StreamReport - View response: $response'); // Debug print
+              print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+              return response.isNotEmpty
+                  ? Report.fromJson(response.first)
+                  : Report();
+            });
+      } else {
+        return Stream.value(Report());
+      }
+    });
+  }
 
   /// Updates the current user's report document after completing a quiz
   Future<void> updateUserReport(Quiz quiz) async {
