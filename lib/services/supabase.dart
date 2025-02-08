@@ -22,7 +22,6 @@ class SupabaseService {
   Stream<Report> streamReport() {
     return AuthService().userStream.switchMap((authState) {
       final userId = authState.session?.user.id;
-      print('StreamReport - UserID: $userId'); // Debug print
 
       if (userId != null) {
         return _client
@@ -30,13 +29,10 @@ class SupabaseService {
             .stream(primaryKey: ['userid'])
             .eq('userid', userId)
             .asyncMap((_) async {
-              print('StreamReport - Change detected in reports table'); // Debug print
               final response = await _client
                   .from('completed_quizzes')
                   .select()
                   .eq('userid', userId);
-              print('StreamReport - View response: $response'); // Debug print
-              print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
               return response.isNotEmpty
                   ? Report.fromJson(response.first)
                   : Report();
